@@ -135,7 +135,7 @@ namespace Better_AI
                 fishmanAI.ActionDefs[3] = mAStrike;
                 fishmanAI.ActionDefs[2].Weight = 500;
                 fishmanAI.ActionDefs[3].Weight = 300;
-
+           /*
             crabmanTankAI.ActionDefs = new AIActionDef[]
             {
                 endturn,
@@ -163,6 +163,7 @@ namespace Better_AI
                 flee,
                 overwatch,
             };
+            */
         }
             public static void MainMod(Func<string, object, object> api)
             {
