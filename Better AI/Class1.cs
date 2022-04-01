@@ -1,4 +1,4 @@
-﻿using Base.AI.Defs;
+using Base.AI.Defs;
 using Base.Core;
 using Base.Defs;
 using Base.Entities.Abilities;
@@ -15,7 +15,9 @@ using PhoenixPoint.Common.UI;
 using PhoenixPoint.Geoscape.Entities.DifficultySystem;
 using PhoenixPoint.Geoscape.Events.Eventus;
 using PhoenixPoint.Tactical;
+using PhoenixPoint.Tactical.AI;
 using PhoenixPoint.Tactical.AI.Actions;
+using PhoenixPoint.Tactical.AI.Considerations;
 using PhoenixPoint.Tactical.Entities;
 using PhoenixPoint.Tactical.Entities.Abilities;
 using PhoenixPoint.Tactical.Entities.Animations;
@@ -100,9 +102,11 @@ namespace Better_AI
                 AIActionsTemplateDef crabmanTankAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("CrabmanTank_AIActionsTemplateDef"));
                 AIActionsTemplateDef crabmanBrawlerAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("CrabmanBrawler_AIActionsTemplateDef"));
                 AIActionsTemplateDef fishmanAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Fishman_AIActionsTemplateDef"));
-                AIActionsTemplateDef QueenAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Queen_AIActionsTemplateDef"));
+            AISafePositionConsiderationDef fishmanSafeAI = Repo.GetAllDefs<AISafePositionConsiderationDef>().FirstOrDefault(a => a.name.Equals("Fishman_SafePosition_AIConsiderationDef"));
+            AIActionsTemplateDef QueenAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Queen_AIActionsTemplateDef"));
                 AIActionsTemplateDef acheronAAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronAggressive_AIActionsTemplateDef"));
                 AIActionsTemplateDef acheronDAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronDefensive_AIActionsTemplateDef"));
+                AIActionMoveAndAttackDef SirenAcidAI = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("Siren_MoveAndSpitAcid_AIActionDef"));
 
             AIActionEndCharacterTurnDef endturn = Repo.GetAllDefs<AIActionEndCharacterTurnDef>().FirstOrDefault(a => a.name.Equals("EndCharacterTurn_AIActionDef"));
             AIActionMoveAndAttackDef moveAndShoot = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndShoot_AIActionDef"));
@@ -114,11 +118,13 @@ namespace Better_AI
             AIActionMoveToPositionDef moveNoShield = Repo.GetAllDefs<AIActionMoveToPositionDef>().FirstOrDefault(a => a.name.Equals("Crabman_Advance_Normal_WithoutShield_AIActionDef"));
             AIActionMoveAndEscapeDef flee = Repo.GetAllDefs<AIActionMoveAndEscapeDef>().FirstOrDefault(a => a.name.Equals("Flee_AIActionDef"));
             AIActionOverwatchDef overwatch = Repo.GetAllDefs<AIActionOverwatchDef>().FirstOrDefault(a => a.name.Equals("Overwatch_AIActionDef"));
-         
-            soldierAI.ActionDefs[7].Weight = 10;
+
+            soldierAI.ActionDefs[7].Weight = 2;
                 soldierAI.ActionDefs[26].Weight = 350;
                 fishmanAI.ActionDefs[4].Weight = 200;
                 fishmanAI.ActionDefs[5].Weight = 1000;
+            fishmanSafeAI.NoneCoverProtection = 0.5f;
+            fishmanSafeAI.VisionScoreWhenVisibleByAllEnemies = 0.1f;
                 acheronAAI.ActionDefs[1].Weight = 250;
                 QueenAI.ActionDefs[9].Weight = 0.01f;
 
@@ -130,12 +136,38 @@ namespace Better_AI
                     Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndStrike_AIActionDef")),
                     "78c28fb8-0573-467a-a1c3-94b40673ef47",
                     "VC_MoveAndStrike_AIActionDef");
-
+           
+                SirenAcidAI.Weight = 350;
                 fishmanAI.ActionDefs[2] = mAShoot;
                 fishmanAI.ActionDefs[3] = mAStrike;
                 fishmanAI.ActionDefs[2].Weight = 500;
                 fishmanAI.ActionDefs[3].Weight = 300;
-           /*
+        }
+            public static void MainMod(Func<string, object, object> api)
+            {
+                HarmonyInstance.Create("your.mod.id").PatchAll();
+                api("log verbose", "Mod Initialised.");
+            /*
+            TacAIActorDef fhAIActor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Facehugger_AIActorDef"));
+            TacAIActorDef soldierAIActor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("AIActorDef"));
+            TacAIActorDef arthronAIActor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Crabman_AIActorDef"));
+            TacAIActorDef tritonAIActor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Fishman_AIActorDef"));
+            TacAIActorDef sirenAIActor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Siren_AIActorDef"));
+            TacAIActorDef chironAIACtor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Chiron_AIActorDef"));
+            TacAIActorDef swarmerAIACtor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Swarmer_AIActorDef"));
+            TacAIActorDef acheronAIACtor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Acheron_AIActorDef"));
+            TacAIActorDef queenAIACtor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Queen_AIActorDef"));
+
+            fhAIActor.AIActorData.IsAlerted = true;
+            soldierAIActor.AIActorData.IsAlerted = true;
+            arthronAIActor.AIActorData.IsAlerted = true;
+            tritonAIActor.AIActorData.IsAlerted = true;
+            sirenAIActor.AIActorData.IsAlerted = true;
+            chironAIACtor.AIActorData.IsAlerted = true;
+            swarmerAIACtor.AIActorData.IsAlerted = true;
+            acheronAIACtor.AIActorData.IsAlerted = true;
+            queenAIACtor.AIActorData.IsAlerted  = true;
+          
             crabmanTankAI.ActionDefs = new AIActionDef[]
             {
                 endturn,
@@ -152,7 +184,7 @@ namespace Better_AI
                 moveRandom,
                 moveSafe,
             };
-            crabmanBrawlerAI.ActionDefs = new AIActionDef[]
+            crabmanAI.ActionDefs = new AIActionDef[]
             {
                 endturn,
                 moveRandom,
@@ -164,11 +196,6 @@ namespace Better_AI
                 overwatch,
             };
             */
-        }
-            public static void MainMod(Func<string, object, object> api)
-            {
-                HarmonyInstance.Create("your.mod.id").PatchAll();
-                api("log verbose", "Mod Initialised.");
             }
         }
 }
