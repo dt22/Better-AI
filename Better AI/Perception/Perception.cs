@@ -34,17 +34,20 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Better_AI;
 
 namespace Better_AI.Perception
 {
     internal class Perception
     {
 
-        public static void Change_Perception()
+			public static void Change_Perception()
         {
             DefRepository defRepository = GameUtl.GameComponent<DefRepository>();
             SharedData Shared = GameUtl.GameComponent<SharedData>();
 
+			TacticalPerceptionDef tacticalPerceptionDef = defRepository.GetAllDefs<TacticalPerceptionDef>().FirstOrDefault((TacticalPerceptionDef a) => a.name.Equals("Soldier_PerceptionDef"));
+			tacticalPerceptionDef.PerceptionRange = (float)MyMod.Config.Human_Soldier_Perception;
 			BodyPartAspectDef bodyPartAspectDef = defRepository.GetAllDefs<BodyPartAspectDef>().FirstOrDefault((BodyPartAspectDef a) => a.name.Equals("E_BodyPartAspect [SY_Sniper_Helmet_BodyPartDef]"));
 			bodyPartAspectDef.Perception = 4f;
 			BodyPartAspectDef bodyPartAspectDef2 = defRepository.GetAllDefs<BodyPartAspectDef>().FirstOrDefault((BodyPartAspectDef a) => a.name.Equals("E_BodyPartAspect [AN_Assault_Helmet_BodyPartDef]"));

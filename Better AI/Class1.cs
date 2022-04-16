@@ -34,6 +34,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Better_AI.Perception;
 
 namespace Better_AI
 {
@@ -90,14 +91,22 @@ namespace Better_AI
             }
         }
     }
+    internal class ModConfig
+    {
+        public int Human_Soldier_Perception = 30;
+    }
     public static class MyMod
     {
+        internal static ModConfig Config;
         public static void HomeMod(Func<string, object, object> api = null)
         {
+            MyMod.Config = ((api("config", null) as ModConfig) ?? new ModConfig());
             HarmonyInstance.Create("your.mod.id").PatchAll();
             api?.Invoke("log verbose", "Mod Initialised.");
             DefRepository Repo = GameUtl.GameComponent<DefRepository>();
             SharedData Shared = GameUtl.GameComponent<SharedData>();
+
+            Perception.Perception.Change_Perception();
 
             AIActionsTemplateDef soldierAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AIActionsTemplateDef"));
             AIActionsTemplateDef crabmanAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Crabman_AIActionsTemplateDef"));
