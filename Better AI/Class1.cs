@@ -1,4 +1,4 @@
-﻿using Base.AI.Defs;
+using Base.AI.Defs;
 using Base.Core;
 using Base.Defs;
 using Base.Entities.Abilities;
@@ -90,25 +90,25 @@ namespace Better_AI
             }
         }
     }
-        public static class MyMod
+    public static class MyMod
+    {
+        public static void HomeMod(Func<string, object, object> api = null)
         {
-            public static void HomeMod(Func<string, object, object> api = null)
-            {
-                HarmonyInstance.Create("your.mod.id").PatchAll();
-                api?.Invoke("log verbose", "Mod Initialised.");
-                DefRepository Repo = GameUtl.GameComponent<DefRepository>();
-                SharedData Shared = GameUtl.GameComponent<SharedData>();
+            HarmonyInstance.Create("your.mod.id").PatchAll();
+            api?.Invoke("log verbose", "Mod Initialised.");
+            DefRepository Repo = GameUtl.GameComponent<DefRepository>();
+            SharedData Shared = GameUtl.GameComponent<SharedData>();
 
             AIActionsTemplateDef soldierAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AIActionsTemplateDef"));
-                AIActionsTemplateDef crabmanAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Crabman_AIActionsTemplateDef"));
-                AIActionsTemplateDef crabmanTankAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("CrabmanTank_AIActionsTemplateDef"));
-                AIActionsTemplateDef crabmanBrawlerAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("CrabmanBrawler_AIActionsTemplateDef"));
-                AIActionsTemplateDef fishmanAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Fishman_AIActionsTemplateDef"));
+            AIActionsTemplateDef crabmanAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Crabman_AIActionsTemplateDef"));
+            AIActionsTemplateDef crabmanTankAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("CrabmanTank_AIActionsTemplateDef"));
+            AIActionsTemplateDef crabmanBrawlerAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("CrabmanBrawler_AIActionsTemplateDef"));
+            AIActionsTemplateDef fishmanAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Fishman_AIActionsTemplateDef"));
             AISafePositionConsiderationDef fishmanSafeAI = Repo.GetAllDefs<AISafePositionConsiderationDef>().FirstOrDefault(a => a.name.Equals("Fishman_SafePosition_AIConsiderationDef"));
             AIActionsTemplateDef QueenAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Queen_AIActionsTemplateDef"));
-                AIActionsTemplateDef acheronAAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronAggressive_AIActionsTemplateDef"));
-                AIActionsTemplateDef acheronDAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronDefensive_AIActionsTemplateDef"));
-                AIActionMoveAndAttackDef SirenAcidAI = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("Siren_MoveAndSpitAcid_AIActionDef"));
+            AIActionsTemplateDef acheronAAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronAggressive_AIActionsTemplateDef"));
+            AIActionsTemplateDef acheronDAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronDefensive_AIActionsTemplateDef"));
+            AIActionMoveAndAttackDef SirenAcidAI = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("Siren_MoveAndSpitAcid_AIActionDef"));
 
             AIActionEndCharacterTurnDef endturn = Repo.GetAllDefs<AIActionEndCharacterTurnDef>().FirstOrDefault(a => a.name.Equals("EndCharacterTurn_AIActionDef"));
             AIActionMoveAndAttackDef moveAndShoot = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndShoot_AIActionDef"));
@@ -126,13 +126,13 @@ namespace Better_AI
             WeaponDef sirenArmisAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_Orichalcum_WeaponDef"));
 
             soldierAI.ActionDefs[7].Weight = 2;
-                soldierAI.ActionDefs[26].Weight = 350;
-                fishmanAI.ActionDefs[4].Weight = 200;
-                fishmanAI.ActionDefs[5].Weight = 1000;
+            soldierAI.ActionDefs[26].Weight = 350;
+            fishmanAI.ActionDefs[4].Weight = 200;
+            fishmanAI.ActionDefs[5].Weight = 1000;
             fishmanSafeAI.NoneCoverProtection = 0.5f;
             fishmanSafeAI.VisionScoreWhenVisibleByAllEnemies = 0.1f;
-                acheronAAI.ActionDefs[1].Weight = 250;
-                QueenAI.ActionDefs[9].Weight = 0.01f;
+            acheronAAI.ActionDefs[1].Weight = 250;
+            QueenAI.ActionDefs[9].Weight = 0.01f;
             SirenAcidAI.Weight = 600;
             //sirenAcidSpread.MinOptimalRange = 1;
             sirenAttackPosition.FriendlyHitScoreMultiplier = 1;
@@ -158,21 +158,21 @@ namespace Better_AI
                     Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(t => t.name.Equals("MoveAndShoot_AIActionDef")),
                     "3fd2dfd1-3cc0-4c71-b427-22afd020b45d",
                     "BC_MoveAndShoot_AIActionDef");
-                AIActionMoveAndAttackDef mAStrike = AIChanges.CreateDefFromClone(
-                    Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndStrike_AIActionDef")),
-                    "78c28fb8-0573-467a-a1c3-94b40673ef47",
-                    "VC_MoveAndStrike_AIActionDef");
-           
-                
-                fishmanAI.ActionDefs[2] = mAShoot;
-                fishmanAI.ActionDefs[3] = mAStrike;
-                fishmanAI.ActionDefs[2].Weight = 500;
-                fishmanAI.ActionDefs[3].Weight = 300;
+            AIActionMoveAndAttackDef mAStrike = AIChanges.CreateDefFromClone(
+                Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndStrike_AIActionDef")),
+                "78c28fb8-0573-467a-a1c3-94b40673ef47",
+                "VC_MoveAndStrike_AIActionDef");
+
+
+            fishmanAI.ActionDefs[2] = mAShoot;
+            fishmanAI.ActionDefs[3] = mAStrike;
+            fishmanAI.ActionDefs[2].Weight = 500;
+            fishmanAI.ActionDefs[3].Weight = 300;
         }
-            public static void MainMod(Func<string, object, object> api)
-            {
-                HarmonyInstance.Create("your.mod.id").PatchAll();
-                api("log verbose", "Mod Initialised.");
+        public static void MainMod(Func<string, object, object> api)
+        {
+            HarmonyInstance.Create("your.mod.id").PatchAll();
+            api("log verbose", "Mod Initialised.");
             /*
             TacAIActorDef fhAIActor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("Facehugger_AIActorDef"));
             TacAIActorDef soldierAIActor = Repo.GetAllDefs<TacAIActorDef>().FirstOrDefault(a => a.name.Equals("AIActorDef"));
@@ -222,6 +222,6 @@ namespace Better_AI
                 overwatch,
             };
             */
-            }
         }
+    }
 }
