@@ -134,13 +134,14 @@ namespace Better_AI
             acheronAAI.ActionDefs[1].Weight = 250;
             QueenAI.ActionDefs[9].Weight = 0.01f;
             SirenAcidAI.Weight = 600;
+            /*
             //sirenAcidSpread.MinOptimalRange = 1;
-            sirenAttackPosition.FriendlyHitScoreMultiplier = 1;
-            sirenAttackPosition.IgnoreDamageOnSelf = true;
-            sirenAcidTorso.DamagePayload.Range = 10;
-            sirenAcidTorso.APToUsePerc = 25;
-            sirenArmisAcidTorso.DamagePayload.Range = 10;
-            sirenArmisAcidTorso.APToUsePerc = 25;
+            //sirenAttackPosition.FriendlyHitScoreMultiplier = 1;
+            //sirenAttackPosition.IgnoreDamageOnSelf = true;
+            //sirenAcidTorso.DamagePayload.Range = 10;
+            //sirenAcidTorso.APToUsePerc = 25;
+            //sirenArmisAcidTorso.DamagePayload.Range = 10;
+            //sirenArmisAcidTorso.APToUsePerc = 25;
 
             sirenAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>()
                 {
@@ -153,7 +154,7 @@ namespace Better_AI
                 sirenArmisAcidTorso.DamagePayload.DamageKeywords[0],
                 new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 10 },
                 };
-
+            */
             AIActionMoveAndAttackDef mAShoot = AIChanges.CreateDefFromClone(
                     Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(t => t.name.Equals("MoveAndShoot_AIActionDef")),
                     "3fd2dfd1-3cc0-4c71-b427-22afd020b45d",
