@@ -1,7 +1,7 @@
 ﻿   {
     Id: "Better_AI",
       Lang : "en",
-      Name : "Better Enemies",
+      Name : "Better AI",
       Url  : "https://github.com/Sheep-y/Modnix/wiki/DLL-Mod-Quick-Start",
       Description : "Config",
       Requires : { Id: "Modnix", Min: "2.0" },
