@@ -35,6 +35,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Better_AI.Perception;
+using Base.AI;
 
 namespace Better_AI
 {
@@ -94,6 +95,7 @@ namespace Better_AI
     internal class ModConfig
     {
         public int Human_Soldier_Perception = 30;
+        public bool DoubleTheTimeAICanThink = false;
     }
     public static class MyMod
     {
@@ -133,7 +135,17 @@ namespace Better_AI
             AIAttackPositionConsiderationDef sirenAttackPosition = Repo.GetAllDefs<AIAttackPositionConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_AcidSpitAttackPosition_AIConsiderationDef"));
             WeaponDef sirenAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_AcidSpitter_WeaponDef"));
             WeaponDef sirenArmisAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_Orichalcum_WeaponDef"));
-            //
+
+            AISettingsDef aiSettings = Repo.GetAllDefs<AISettingsDef>().FirstOrDefault(a => a.name.Equals("AISettingsDef"));
+
+            if(Config.DoubleTheTimeAICanThink == true)
+            {
+                aiSettings.MaxActorEvaluationTimeInSeconds = 60;
+                aiSettings.MillisecondsEvaluationBudget = 20;
+            }
+            aiSettings.NumberOfActionsConsidered = 3;
+            
+
             soldierAI.ActionDefs[7].Weight = 2;
             soldierAI.ActionDefs[26].Weight = 350;
             fishmanAI.ActionDefs[4].Weight = 200;
@@ -143,27 +155,7 @@ namespace Better_AI
             acheronAAI.ActionDefs[1].Weight = 250;
             QueenAI.ActionDefs[9].Weight = 0.01f;
             SirenAcidAI.Weight = 600;
-            /*
-            //sirenAcidSpread.MinOptimalRange = 1;
-            //sirenAttackPosition.FriendlyHitScoreMultiplier = 1;
-            //sirenAttackPosition.IgnoreDamageOnSelf = true;
-            //sirenAcidTorso.DamagePayload.Range = 10;
-            //sirenAcidTorso.APToUsePerc = 25;
-            //sirenArmisAcidTorso.DamagePayload.Range = 10;
-            //sirenArmisAcidTorso.APToUsePerc = 25;
-
-            sirenAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>()
-                {
-                sirenAcidTorso.DamagePayload.DamageKeywords[0],
-                new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 10 },
-                };
-
-            sirenArmisAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>()
-                {
-                sirenArmisAcidTorso.DamagePayload.DamageKeywords[0],
-                new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 10 },
-                };
-            */
+           
             AIActionMoveAndAttackDef mAShoot = AIChanges.CreateDefFromClone(
                     Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(t => t.name.Equals("MoveAndShoot_AIActionDef")),
                     "3fd2dfd1-3cc0-4c71-b427-22afd020b45d",

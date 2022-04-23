@@ -79,6 +79,8 @@ namespace Better_AI.Perception
 			bodyPartAspectDef14.Perception = 5f;
 			BodyPartAspectDef bodyPartAspectDef15 = defRepository.GetAllDefs<BodyPartAspectDef>().FirstOrDefault((BodyPartAspectDef a) => a.name.Equals("E_BodyPartAspect [AN_Berserker_Watcher_Torso_BodyPartDef]"));
 			bodyPartAspectDef15.Perception = 3f;
+			BodyPartAspectDef bodyPartAspectDef16 = defRepository.GetAllDefs<BodyPartAspectDef>().FirstOrDefault((BodyPartAspectDef a) => a.name.Equals("E_BodyPartAspect [NJ_Exo_BIO_Helmet_BodyPartDef]"));
+			bodyPartAspectDef16.Perception = 3f;
 		}
     }
 }
