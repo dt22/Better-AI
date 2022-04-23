@@ -139,8 +139,26 @@ namespace Better_AI
             WeaponDef sirenArmisAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_Orichalcum_WeaponDef"));
             AIActorRangeZoneTargetGeneratorDef chironStrikeTargetDef = Repo.GetAllDefs<AIActorRangeZoneTargetGeneratorDef>().FirstOrDefault(a => a.name.Equals("StrikeAbilityZone3x3_AITargetGeneratorDef"));
             AISettingsDef aiSettings = Repo.GetAllDefs<AISettingsDef>().FirstOrDefault(a => a.name.Equals("AISettingsDef"));
+            AIActionsTemplateDef queenAITemplate = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Queen_AIActionsTemplateDef"));
 
-            if(Config.DoubleTheTimeAICanThink == true)
+            queenAITemplate.ActionDefs = new AIActionDef[]
+            {
+                queenAITemplate.ActionDefs[0],
+                queenAITemplate.ActionDefs[1],
+                queenAITemplate.ActionDefs[2],
+                queenAITemplate.ActionDefs[3],
+                queenAITemplate.ActionDefs[4],
+                queenAITemplate.ActionDefs[5],
+                queenAITemplate.ActionDefs[6],
+                queenAITemplate.ActionDefs[7],
+                queenAITemplate.ActionDefs[8],
+                queenAITemplate.ActionDefs[9],
+                queenAITemplate.ActionDefs[10],
+                queenAITemplate.ActionDefs[12],
+                queenAITemplate.ActionDefs[13],
+            };
+
+            if (Config.DoubleTheTimeAICanThink == true)
             {
                 aiSettings.MaxActorEvaluationTimeInSeconds = 60;
                 aiSettings.MillisecondsEvaluationBudget = 20;
