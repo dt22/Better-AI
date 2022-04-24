@@ -179,6 +179,11 @@ namespace Better_AI
             QueenAI.ActionDefs[9].Weight = 0.01f;
             
             SirenAcidAI.Weight = 600;
+            SirenAcidAI.EarlyExitConsiderations = new AIAdjustedConsideration[]
+            {
+                SirenAcidAI.EarlyExitConsiderations[0],
+                SirenAcidAI.EarlyExitConsiderations[2],
+            };
            //sirenAcidSpread.MinOptimalRange = 0;
            //sirenAcidShootAbility.TargetingDataDef.Origin.TargetEnemies = true;
            //sirenAcidShootAbility.TargetingDataDef.Target.TargetEnemies = true;
@@ -186,16 +191,16 @@ namespace Better_AI
            //sirenAcidShootAbility.SceneViewElementDef.LineToCursor = PhoenixPoint.Tactical.View.GroundMarkerType.AttackLine;
            //sirenAcidShootAbility.SceneViewElementDef.HoverMarker = PhoenixPoint.Tactical.View.GroundMarkerType.EnemySelection;
            //
-           //sirenArmisAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
-           //{
-           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
-           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
-           //};
-           //sirenAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
-           //{
-           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
-           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
-           //};
+           sirenArmisAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
+           {
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
+           };
+           sirenAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
+           {
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
+           };
 
             AIActionMoveAndAttackDef mAShoot = AIChanges.CreateDefFromClone(
                     Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(t => t.name.Equals("MoveAndShoot_AIActionDef")),
