@@ -121,6 +121,8 @@ namespace Better_AI
             AIActionsTemplateDef acheronAAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronAggressive_AIActionsTemplateDef"));
             AIActionsTemplateDef acheronDAI = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("AcheronDefensive_AIActionsTemplateDef"));
             AIActionMoveAndAttackDef SirenAcidAI = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("Siren_MoveAndSpitAcid_AIActionDef"));
+            WeaponDef sirenAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_AcidSpitter_WeaponDef"));
+            WeaponDef sirenArmisAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_Orichalcum_WeaponDef"));
 
             AIActionEndCharacterTurnDef endturn = Repo.GetAllDefs<AIActionEndCharacterTurnDef>().FirstOrDefault(a => a.name.Equals("EndCharacterTurn_AIActionDef"));
             AIActionMoveAndAttackDef moveAndShoot = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndShoot_AIActionDef"));
@@ -134,9 +136,7 @@ namespace Better_AI
             AIAbilityDisabledStateConsiderationDef chironStrikeAvailable = Repo.GetAllDefs<AIAbilityDisabledStateConsiderationDef>().FirstOrDefault(a => a.name.Equals("Chiron_StrikeAbilityAvailable_AIConsiderationDef"));
             AIActionOverwatchDef overwatch = Repo.GetAllDefs<AIActionOverwatchDef>().FirstOrDefault(a => a.name.Equals("Overwatch_AIActionDef"));
             AISpreadConsiderationDef sirenAcidSpread = Repo.GetAllDefs<AISpreadConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_Spread_AIConsiderationDef"));
-            AIAttackPositionConsiderationDef sirenAttackPosition = Repo.GetAllDefs<AIAttackPositionConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_AcidSpitAttackPosition_AIConsiderationDef"));
-            WeaponDef sirenAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_AcidSpitter_WeaponDef"));
-            WeaponDef sirenArmisAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_Orichalcum_WeaponDef"));
+            AIAttackPositionConsiderationDef sirenAttackPosition = Repo.GetAllDefs<AIAttackPositionConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_AcidSpitAttackPosition_AIConsiderationDef"));         
             AIActorRangeZoneTargetGeneratorDef chironStrikeTargetDef = Repo.GetAllDefs<AIActorRangeZoneTargetGeneratorDef>().FirstOrDefault(a => a.name.Equals("StrikeAbilityZone3x3_AITargetGeneratorDef"));
             AISettingsDef aiSettings = Repo.GetAllDefs<AISettingsDef>().FirstOrDefault(a => a.name.Equals("AISettingsDef"));
             AIActionsTemplateDef queenAITemplate = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Queen_AIActionsTemplateDef"));
