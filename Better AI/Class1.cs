@@ -123,6 +123,8 @@ namespace Better_AI
             AIActionMoveAndAttackDef SirenAcidAI = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("Siren_MoveAndSpitAcid_AIActionDef"));
             WeaponDef sirenAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_AcidSpitter_WeaponDef"));
             WeaponDef sirenArmisAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_Orichalcum_WeaponDef"));
+            AISpreadConsiderationDef sirenAcidSpread = Repo.GetAllDefs<AISpreadConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_Spread_AIConsiderationDef"));
+            ShootAbilityDef sirenAcidShootAbility = Repo.GetAllDefs<ShootAbilityDef>().FirstOrDefault(a => a.name.Equals("Siren_SpitAcid_AbilityDef"));
 
             AIActionEndCharacterTurnDef endturn = Repo.GetAllDefs<AIActionEndCharacterTurnDef>().FirstOrDefault(a => a.name.Equals("EndCharacterTurn_AIActionDef"));
             AIActionMoveAndAttackDef moveAndShoot = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndShoot_AIActionDef"));
@@ -134,8 +136,7 @@ namespace Better_AI
             AIActionMoveToPositionDef moveNoShield = Repo.GetAllDefs<AIActionMoveToPositionDef>().FirstOrDefault(a => a.name.Equals("Crabman_Advance_Normal_WithoutShield_AIActionDef"));
             AIActionMoveAndEscapeDef flee = Repo.GetAllDefs<AIActionMoveAndEscapeDef>().FirstOrDefault(a => a.name.Equals("Flee_AIActionDef"));
             AIAbilityDisabledStateConsiderationDef chironStrikeAvailable = Repo.GetAllDefs<AIAbilityDisabledStateConsiderationDef>().FirstOrDefault(a => a.name.Equals("Chiron_StrikeAbilityAvailable_AIConsiderationDef"));
-            AIActionOverwatchDef overwatch = Repo.GetAllDefs<AIActionOverwatchDef>().FirstOrDefault(a => a.name.Equals("Overwatch_AIActionDef"));
-            AISpreadConsiderationDef sirenAcidSpread = Repo.GetAllDefs<AISpreadConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_Spread_AIConsiderationDef"));
+            AIActionOverwatchDef overwatch = Repo.GetAllDefs<AIActionOverwatchDef>().FirstOrDefault(a => a.name.Equals("Overwatch_AIActionDef"));            
             AIAttackPositionConsiderationDef sirenAttackPosition = Repo.GetAllDefs<AIAttackPositionConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_AcidSpitAttackPosition_AIConsiderationDef"));         
             AIActorRangeZoneTargetGeneratorDef chironStrikeTargetDef = Repo.GetAllDefs<AIActorRangeZoneTargetGeneratorDef>().FirstOrDefault(a => a.name.Equals("StrikeAbilityZone3x3_AITargetGeneratorDef"));
             AISettingsDef aiSettings = Repo.GetAllDefs<AISettingsDef>().FirstOrDefault(a => a.name.Equals("AISettingsDef"));
@@ -176,8 +177,26 @@ namespace Better_AI
             fishmanSafeAI.VisionScoreWhenVisibleByAllEnemies = 0.1f;
             acheronAAI.ActionDefs[1].Weight = 250;
             QueenAI.ActionDefs[9].Weight = 0.01f;
+            
             SirenAcidAI.Weight = 600;
-           
+           //sirenAcidSpread.MinOptimalRange = 0;
+           //sirenAcidShootAbility.TargetingDataDef.Origin.TargetEnemies = true;
+           //sirenAcidShootAbility.TargetingDataDef.Target.TargetEnemies = true;
+           //
+           //sirenAcidShootAbility.SceneViewElementDef.LineToCursor = PhoenixPoint.Tactical.View.GroundMarkerType.AttackLine;
+           //sirenAcidShootAbility.SceneViewElementDef.HoverMarker = PhoenixPoint.Tactical.View.GroundMarkerType.EnemySelection;
+           //
+           //sirenArmisAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
+           //{
+           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
+           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
+           //};
+           //sirenAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
+           //{
+           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
+           //    new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
+           //};
+
             AIActionMoveAndAttackDef mAShoot = AIChanges.CreateDefFromClone(
                     Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(t => t.name.Equals("MoveAndShoot_AIActionDef")),
                     "3fd2dfd1-3cc0-4c71-b427-22afd020b45d",
