@@ -125,6 +125,9 @@ namespace Better_AI
             WeaponDef sirenArmisAcidTorso = Repo.GetAllDefs<WeaponDef>().FirstOrDefault(a => a.name.Equals("Siren_Torso_Orichalcum_WeaponDef"));
             AISpreadConsiderationDef sirenAcidSpread = Repo.GetAllDefs<AISpreadConsiderationDef>().FirstOrDefault(a => a.name.Equals("Siren_Spread_AIConsiderationDef"));
             ShootAbilityDef sirenAcidShootAbility = Repo.GetAllDefs<ShootAbilityDef>().FirstOrDefault(a => a.name.Equals("Siren_SpitAcid_AbilityDef"));
+            AIActorMovementZoneTargetGeneratorDef sirenActionZone = Repo.GetAllDefs<AIActorMovementZoneTargetGeneratorDef>().FirstOrDefault(a => a.name.Equals("Siren_ActionZone_AITargetGeneratorDef"));
+
+            ShootAbilityDef spitShootPoison = Repo.GetAllDefs<ShootAbilityDef>().FirstOrDefault(a => a.name.Equals("SpitPoison_ShootAbilityDef"));
 
             AIActionEndCharacterTurnDef endturn = Repo.GetAllDefs<AIActionEndCharacterTurnDef>().FirstOrDefault(a => a.name.Equals("EndCharacterTurn_AIActionDef"));
             AIActionMoveAndAttackDef moveAndShoot = Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(a => a.name.Equals("MoveAndShoot_AIActionDef"));
@@ -141,23 +144,7 @@ namespace Better_AI
             AIActorRangeZoneTargetGeneratorDef chironStrikeTargetDef = Repo.GetAllDefs<AIActorRangeZoneTargetGeneratorDef>().FirstOrDefault(a => a.name.Equals("StrikeAbilityZone3x3_AITargetGeneratorDef"));
             AISettingsDef aiSettings = Repo.GetAllDefs<AISettingsDef>().FirstOrDefault(a => a.name.Equals("AISettingsDef"));
             AIActionsTemplateDef queenAITemplate = Repo.GetAllDefs<AIActionsTemplateDef>().FirstOrDefault(a => a.name.Equals("Queen_AIActionsTemplateDef"));
-
-            queenAITemplate.ActionDefs = new AIActionDef[]
-            {
-                queenAITemplate.ActionDefs[0],
-                queenAITemplate.ActionDefs[1],
-                queenAITemplate.ActionDefs[2],
-                queenAITemplate.ActionDefs[3],
-                queenAITemplate.ActionDefs[4],
-                queenAITemplate.ActionDefs[5],
-                queenAITemplate.ActionDefs[6],
-                queenAITemplate.ActionDefs[7],
-                queenAITemplate.ActionDefs[8],
-                queenAITemplate.ActionDefs[9],
-                queenAITemplate.ActionDefs[10],
-                queenAITemplate.ActionDefs[12],
-                queenAITemplate.ActionDefs[13],
-            };
+           
 
             if (Config.DoubleTheTimeAICanThink == true)
             {
@@ -178,30 +165,64 @@ namespace Better_AI
             acheronAAI.ActionDefs[1].Weight = 250;
             QueenAI.ActionDefs[9].Weight = 0.01f;
             
-            SirenAcidAI.Weight = 600;
-            SirenAcidAI.EarlyExitConsiderations = new AIAdjustedConsideration[]
-            {
-                SirenAcidAI.EarlyExitConsiderations[0],
-                SirenAcidAI.EarlyExitConsiderations[2],
-            };
-           //sirenAcidSpread.MinOptimalRange = 0;
-           //sirenAcidShootAbility.TargetingDataDef.Origin.TargetEnemies = true;
-           //sirenAcidShootAbility.TargetingDataDef.Target.TargetEnemies = true;
-           //
+            SirenAcidAI.Weight = 1500;
+            sirenActionZone.ZoneRange = 10;
+            SirenAcidAI.EarlyExitConsiderations = new AIAdjustedConsideration[0];
+           
+           //SirenAcidAI.Evaluations[0].Considerations = new AIAdjustedConsideration[]
+           //{
+           //    SirenAcidAI.Evaluations[0].Considerations[0],
+           //};
+
+           //SirenAcidAI.Evaluations[1].Considerations = new AIAdjustedConsideration[]
+           //{
+            //   SirenAcidAI.Evaluations[1].Considerations[0],
+            //   SirenAcidAI.Evaluations[1].Considerations[1],
+           //};
+            
+            
+            sirenAttackPosition.IgnoreDamageOnSelf = true;
+            sirenAttackPosition.FriendlyHitScoreMultiplier = 1;
+            //sirenAttackPosition.CheckIfPositionsAreInActionRange = false;
+            //sirenAttackPosition.EnemyMask = ActorType.Combatant;
+            sirenAttackPosition.MaxDamage = 100;
+            sirenArmisAcidTorso.APToUsePerc = 25;
+            sirenArmisAcidTorso.DamagePayload.Range = 20;
+            //sirenArmisAcidTorso.SpreadDegrees = 0.1f;            
+            //sirenArmisAcidTorso.ChargesMax = 0;           
+            //sirenArmisAcidTorso.DamagePayload.DamageDeliveryType = DamageDeliveryType.DirectLine;
+
+
+            //sirenAcidShootAbility.ActionPointCost = 0;
+            //sirenAcidShootAbility.TargetingDataDef = spitShootPoison.TargetingDataDef;
+            //sirenAcidShootAbility.SceneViewElementDef = spitShootPoison.SceneViewElementDef;
+            //sirenAcidShootAbility.CanUseFirstPersonCam = true;
+
            //sirenAcidShootAbility.SceneViewElementDef.LineToCursor = PhoenixPoint.Tactical.View.GroundMarkerType.AttackLine;
            //sirenAcidShootAbility.SceneViewElementDef.HoverMarker = PhoenixPoint.Tactical.View.GroundMarkerType.EnemySelection;
-           //
+           
            sirenArmisAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
            {
-               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
-               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.DamageKeyword, Value = 120 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.PiercingKeyword, Value = 120 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 120 },
            };
            sirenAcidTorso.DamagePayload.DamageKeywords = new List<DamageKeywordPair>
            {
-               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 40 },
-               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 60 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.BlastKeyword, Value = 60 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.ShreddingKeyword, Value = 10 },
+               new DamageKeywordPair{DamageKeywordDef = Shared.SharedDamageKeywords.AcidKeyword, Value = 120 },
            };
-
+            sirenArmisAcidTorso.Tags = new GameTagsList
+            {
+                sirenArmisAcidTorso.Tags[0],
+                sirenArmisAcidTorso.Tags[1],
+                sirenArmisAcidTorso.Tags[2],
+                sirenArmisAcidTorso.Tags[3],
+                sirenArmisAcidTorso.Tags[4],
+                //Repo.GetAllDefs<ItemClassificationTagDef>().FirstOrDefault(p => p.name.Equals("GunWeapon_TagDef")),
+            };
+            
             AIActionMoveAndAttackDef mAShoot = AIChanges.CreateDefFromClone(
                     Repo.GetAllDefs<AIActionMoveAndAttackDef>().FirstOrDefault(t => t.name.Equals("MoveAndShoot_AIActionDef")),
                     "3fd2dfd1-3cc0-4c71-b427-22afd020b45d",

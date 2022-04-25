@@ -40,9 +40,8 @@ namespace Better_AI.Perception
 {
     internal class Perception
     {
-
 			public static void Change_Perception()
-        {
+          {
             DefRepository defRepository = GameUtl.GameComponent<DefRepository>();
             SharedData Shared = GameUtl.GameComponent<SharedData>();
 
